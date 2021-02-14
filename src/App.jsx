@@ -1,11 +1,18 @@
-import React from 'react'
+import React from 'react';
+import TextTyping from './components/TextTyping';
+
+import { Provider } from 'react-redux';
+
+import store from './store';
 
 const App = () => {
-  return (
-    <div>
-      <h1>Hello world !!!</h1>
-    </div>
-  )
-}
+    return (
+        <Provider store={store}>
+            <div className='container'>
+                <TextTyping />
+            </div>
+        </Provider>
+    );
+};
 
-export default App
+export default App;

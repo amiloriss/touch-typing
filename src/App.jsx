@@ -33,7 +33,7 @@ const paperStyle = {
     padding: '20px',
     display: 'flex',
     justifyContent: 'center',
-    textAlign: 'justify'
+    textAlign: 'justify',
 }
 
 const mapStateToProps = (state) => ({

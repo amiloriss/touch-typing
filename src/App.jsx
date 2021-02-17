@@ -27,7 +27,7 @@ const App = ({ loading, getData, data }) => {
 		return <LinearProgress />;
 	}
 	return (
-		<>
+		<div style={{minWidth: '1000px', margin: '0 auto'}}>
 			<AppBar position='relative' style={{ padding: '20px 35px' }}>
 				<h2>Touch Typing Speed</h2>
 			</AppBar>
@@ -54,7 +54,7 @@ const App = ({ loading, getData, data }) => {
 					</Grid>
 				)}
 			</Container>
-		</>
+		</div>
 	);
 };
 

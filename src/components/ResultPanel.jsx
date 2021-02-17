@@ -16,7 +16,7 @@ const ResultPanel = ({ mistake, accuracy,speed}) => {
 						className='fas fa-tachometer-alt'
 					></i>
 				</ListItemIcon>
-				<ListItemText style={textStyle}>слов / мин: {speed}</ListItemText>
+				<ListItemText style={textStyle}>символов / мин: {speed}</ListItemText>
 			</ListItem>
 			<ListItem>
 				<ListItemIcon style={iconStyleWrapper}>

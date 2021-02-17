@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Paper } from '@material-ui/core';
+
+import ModalWindow from '../components/ModalWindow';
 
 import { updateMistake, setCount } from '../action/action';
 
@@ -11,17 +13,18 @@ const TextTyping = ({
 	updateMistake,
 	setCount,
 	count,
+	setIsCompleted,
 }) => {
 	let index = 0;
 	if (count < text.length) {
 		text[count].current = true;
 	}
-	console.log(text.length);
+
 	useEffect(() => {
 		document.body.addEventListener('keydown', e => {
-			console.log(text[count]);
 			if (
 				e.keyCode !== 16 &&
+				e.keyCode !== 17 &&
 				e.keyCode !== 20 &&
 				e.key.match(/^[a-zA-Z0-9_' '_._,-]*$/)
 			) {
@@ -40,8 +43,7 @@ const TextTyping = ({
 						updateMistake((mistake += 1));
 					}
 					if (count === text.length) {
-						// here i will call modal window
-						alert('nice');
+						setIsCompleted(true);
 					}
 				}
 			}
@@ -49,28 +51,30 @@ const TextTyping = ({
 	}, [text]);
 
 	return (
-		<Paper style={paperStyle}>
-			<div style={{ fontSize: '22px', lineHeight: '1.4' }}>
-				{text.map(el => {
-					index++;
-					return (
-						<span
-							style={{ padding: '0 3px', margin: '0 1px' }}
-							key={index}
-							className={
-								el.current
-									? 'current-letter'
-									: el.success
-									? 'passed'
-									: el.failure && 'failure'
-							}
-						>
-							{el.letter}
-						</span>
-					);
-				})}
-			</div>
-		</Paper>
+		<>
+			<Paper style={paperStyle}>
+				<div style={{ fontSize: '22px', lineHeight: '1.4' }}>
+					{text.map(el => {
+						index++;
+						return (
+							<span
+								style={{ padding: '0 3px', margin: '0 1px' }}
+								key={index}
+								className={
+									el.current
+										? 'current-letter'
+										: el.success
+										? 'passed'
+										: el.failure && 'failure'
+								}
+							>
+								{el.letter}
+							</span>
+						);
+					})}
+				</div>
+			</Paper>
+		</>
 	);
 };
 

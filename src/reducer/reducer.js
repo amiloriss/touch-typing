@@ -4,7 +4,6 @@ import {
     UPDATE_SPEED,
     UPDATE_ACCURACY,
     UPDATE_COUNT,
-    NEW_START,
 } from '../action/type';
 
 const initialState = {
@@ -13,7 +12,7 @@ const initialState = {
     error: null,
     count: 0,
     typingSpeed: 0,
-    typingAccuracy: 0,
+    typingAccuracy: 100,
     typingMistake: 0,
 };
 

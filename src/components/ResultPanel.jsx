@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
-const ResultPanel = ({ mistake }) => {
+const ResultPanel = ({ mistake, accuracy}) => {
 	return (
 		<List>
 			<ListItem>
@@ -27,7 +27,7 @@ const ResultPanel = ({ mistake }) => {
 						className='fas fa-crosshairs'
 					></i>
 				</ListItemIcon>
-				<ListItemText style={textStyle}>точность: 95%</ListItemText>
+				<ListItemText style={textStyle}>точность: {accuracy}%</ListItemText>
 			</ListItem>
 			<ListItem>
 				<ListItemIcon style={iconStyleWrapper}>
@@ -55,5 +55,6 @@ const iconStyleWrapper = {
 
 const mapStateToProps = state => ({
 	mistake: state.typingMistake,
+	accuracy: state.typingAccuracy,
 });
 export default connect(mapStateToProps)(ResultPanel);

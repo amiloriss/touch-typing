@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Paper } from '@material-ui/core';
 
-const TextTyping = ({ paperStyle, text }) => {
-    let [count, setCount] = useState(0);
+import { updateMistake, setCount } from '../action/action';
+
+const TextTyping = ({ paperStyle, text, mistake, updateMistake, setCount, count }) => {
     let index = 0;
     text[count].current = true;
     useEffect(() => {
@@ -22,18 +23,20 @@ const TextTyping = ({ paperStyle, text }) => {
                     text[count].success = null;
                     text[count].failure = true;
                     setCount((count += 1));
+                    updateMistake((mistake += 1));
                 }
             }
         });
-    }, []);
+    }, [text]);
 
     return (
         <Paper style={paperStyle}>
-            <div style={{ fontSize: '22px', lineHeight: '1.4',  }}>
+            <div style={{ fontSize: '22px', lineHeight: '1.4' }}>
                 {text.map((el) => {
                     index++;
                     return (
-                        <span style={{padding: '0 3px', margin: '0 1px'}}
+                        <span
+                            style={{ padding: '0 3px', margin: '0 1px' }}
                             key={index}
                             className={
                                 el.current
@@ -52,7 +55,7 @@ const TextTyping = ({ paperStyle, text }) => {
 };
 
 const mapStateToProps = (state) => {
-    return { text: state.data };
+    return { text: state.data, mistake: state.typingMistake, count: state.count };
 };
 
-export default connect(mapStateToProps)(TextTyping);
+export default connect(mapStateToProps, { updateMistake, setCount })(TextTyping);

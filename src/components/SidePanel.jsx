@@ -1,13 +1,15 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import {
     List,
     ListItem,
     ListItemIcon,
     ListItemText,
-    Paper, Divider
+    Paper, 
 } from '@material-ui/core';
 
-const SidePanel = ({ paperStyle }) => {
+const SidePanel = ({ paperStyle, mistake }) => {
+
     return (
         <Paper style={paperStyle, {flexDirection: 'row'}}>
             <List>
@@ -18,9 +20,9 @@ const SidePanel = ({ paperStyle }) => {
                                 fontSize: '25px',
                                 color: 'rgb(93, 173, 226)',
                             }}
-                            class='fas fa-tachometer-alt'></i>
+                            className='fas fa-tachometer-alt'></i>
                     </ListItemIcon>
-                    <ListItemText style={textStyle}>100 слов/мин</ListItemText>
+                    <ListItemText style={textStyle}>слов / мин: 100</ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemIcon style={iconStyleWrapper}>
@@ -29,9 +31,9 @@ const SidePanel = ({ paperStyle }) => {
                                 fontSize: '29px',
                                 color: 'rgb(  175, 122, 197 )',
                             }}
-                            class='fas fa-crosshairs'></i>
+                            className='fas fa-crosshairs'></i>
                     </ListItemIcon>
-                    <ListItemText style={textStyle}>95%</ListItemText>
+                    <ListItemText style={textStyle}>точность: 95%</ListItemText>
                 </ListItem>
                 <ListItem>
                     <ListItemIcon style={iconStyleWrapper}>
@@ -40,25 +42,13 @@ const SidePanel = ({ paperStyle }) => {
                                 fontSize: '30px',
                                 color: 'rgb( 236, 112, 99)',
                             }}
-                            class='fas fa-times'></i>
+                            className='fas fa-times'></i>
                     </ListItemIcon>
-                    <ListItemText style={textStyle}>ошибки: 2</ListItemText>
+                    <ListItemText style={textStyle}>ошибки: {mistake}</ListItemText>
                 </ListItem>
                 </List>
-                <Divider />
-                <List>
-                <ListItem style={{ cursor: 'pointer' }}>
-                    <ListItemIcon style={iconStyleWrapper}>
-                        <i
-                            style={{
-                                fontSize: '22px',
-                                color: 'rgb(  88, 214, 141 )',
-                            }}
-                            class='fas fa-redo-alt'></i>
-                    </ListItemIcon>
-                    <ListItemText style={textStyle}>Заново</ListItemText>
-                </ListItem>
-                </List>
+
+
         </Paper>
     );
 };
@@ -70,4 +60,8 @@ const textStyle = {
 const iconStyleWrapper = {
     justifyContent: 'center',
 };
-export default SidePanel;
+
+const mapStateToProps = (state) =>({
+    mistake: state.typingMistake,
+})
+export default connect (mapStateToProps) (SidePanel);

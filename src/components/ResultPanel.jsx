@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
-const ResultPanel = ({ mistake, accuracy}) => {
+const ResultPanel = ({ mistake, accuracy,speed}) => {
+	// console.log(speed);
 	return (
 		<List>
 			<ListItem>
@@ -15,7 +16,7 @@ const ResultPanel = ({ mistake, accuracy}) => {
 						className='fas fa-tachometer-alt'
 					></i>
 				</ListItemIcon>
-				<ListItemText style={textStyle}>слов / мин: 100</ListItemText>
+				<ListItemText style={textStyle}>слов / мин: {speed}</ListItemText>
 			</ListItem>
 			<ListItem>
 				<ListItemIcon style={iconStyleWrapper}>
@@ -56,5 +57,6 @@ const iconStyleWrapper = {
 const mapStateToProps = state => ({
 	mistake: state.typingMistake,
 	accuracy: state.typingAccuracy,
+	speed: state.typingSpeed
 });
 export default connect(mapStateToProps)(ResultPanel);

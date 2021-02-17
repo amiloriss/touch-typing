@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Paper } from '@material-ui/core';
 
-import { updateMistake, setCount, updateAccuracy } from '../action/action';
+import {
+    updateMistake,
+    setCount,
+    updateAccuracy,
+    updateSpeed,
+} from '../action/action';
 
 const TextTyping = ({
     paperStyle,
@@ -12,26 +17,34 @@ const TextTyping = ({
     setCount,
     count,
     setIsCompleted,
-	accuracy,
-	updateAccuracy
+    accuracy,
+    updateAccuracy,
+    updateSpeed,
 }) => {
     let index = 0;
+    let timeElapsed = 0;
     if (count < text.length) {
         text[count].current = true;
     }
 
     useEffect(() => {
         document.body.addEventListener('keydown', (e) => {
+            // setInterval(() => {
+            //     timeElapsed++;
+            //     updateSpeed(count, timeElapsed++);
+            // }, 1000);
             if (
                 e.keyCode !== 16 &&
                 e.keyCode !== 17 &&
                 e.keyCode !== 20 &&
                 e.key.match(/^[a-zA-Z0-9_' '_._,-]*$/)
-            ) {
-                if (count < text.length) {
+                ) {
+                    if (count < text.length) {
                     text[count].current = null;
                 }
 
+                
+                
                 if (count < text.length) {
                     if (e.key === text[count].letter) {
                         text[count].success = true;
@@ -41,16 +54,23 @@ const TextTyping = ({
                         text[count].failure = true;
                         setCount((count += 1));
                         updateMistake((mistake += 1));
-                        updateAccuracy(accuracy -=0.5);
+                        updateAccuracy((accuracy -= 0.5));
                     }
+                    
                     if (count === text.length) {
                         setIsCompleted(true);
+                    }
+                }
+                if (count === 1 && count !== text.legth) {
+                    timeElapsed++;
+                    let timer = setInterval(myTimer, 1000);
+                    function myTimer() {
+                        updateSpeed(count, timeElapsed++, timer, text);
                     }
                 }
             }
         });
     }, [text]);
-
     return (
         <>
             <Paper style={paperStyle}>
@@ -87,6 +107,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { updateMistake, setCount,  updateAccuracy})(
-    TextTyping
-);
+export default connect(mapStateToProps, {
+    updateMistake,
+    setCount,
+    updateAccuracy,
+    updateSpeed,
+})(TextTyping);

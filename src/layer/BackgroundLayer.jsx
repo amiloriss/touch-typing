@@ -1,5 +1,6 @@
 import React from 'react';
 
+// layer for putting and position modal window on page
 const BackgroundLayer = props => {
 	return <div style={backgroundStyle}>{props.children}</div>;
 };

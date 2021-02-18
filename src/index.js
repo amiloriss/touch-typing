@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 ReactDOM.render(
+    // connect to global state (store)
     <Provider store={store}>
         <App />
     </Provider>,

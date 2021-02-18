@@ -8,6 +8,7 @@ import {
     UPDATE_COUNT,
 } from './type';
 
+// connect to api and get text
 export const getData = () => async (dispatch) => {
     try {
         const res = await axios.get(
@@ -17,6 +18,7 @@ export const getData = () => async (dispatch) => {
             .toString()
             .split('')
             .map((letter) => {
+                // set some fields to control current, passed or failed character
                 return {
                     letter,
                     current: null,
@@ -30,7 +32,8 @@ export const getData = () => async (dispatch) => {
     }
 };
 
-export const updateSpeed = (charCount, timeElapsed, timer, text) => async (
+// action for tracking typing speed
+export const updateSpeed = (charCount, timeElapsed, timer, text) => (
     dispatch
 ) => {
     if (charCount === text.length) {
@@ -42,15 +45,19 @@ export const updateSpeed = (charCount, timeElapsed, timer, text) => async (
         });
 };
 
+// action for define typing accuracy
 export const updateAccuracy = (accuracyCount) => ({
     type: UPDATE_ACCURACY,
     payload: accuracyCount,
 });
+
+// action for mistake count
 export const updateMistake = (mistakeCount) => ({
     type: UPDATE_MISTAKE,
     payload: mistakeCount,
 });
 
+// action for set amount of keys pressed
 export const setCount = (count) => ({
     type: UPDATE_COUNT,
     payload: count,

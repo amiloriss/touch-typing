@@ -18,11 +18,14 @@ import ModalWindow from './components/ModalWindow';
 
 const App = ({ loading, getData, data }) => {
 	const [isCompleted, setIsCompleted] = useState(false);
+	// useEffect for run getData when component has mounted
 	useEffect(() => {
 		getData();
 		// eslint-disable-next-line
+		// [] to simulate componentDidMount to start once for stateless component lifecycle
 	}, []);
 
+	// show loading and when data has received then just return jsx of app
 	if (loading || data === null) {
 		return <LinearProgress />;
 	}
@@ -32,6 +35,7 @@ const App = ({ loading, getData, data }) => {
 				<h2>Touch Typing Speed</h2>
 			</AppBar>
 			<Container style={{ marginTop: '20px' }} maxWidth='xl'>
+				{/* if text has been passed then open modal window else open text and left side panel*/}
 				{isCompleted ? (
 					<ModalWindow />
 				) : (

@@ -3,6 +3,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import reducer from './reducer/reducer';
 
+// redux-thunk for async
 const middleware = [thunk];
 
 const store = createStore(

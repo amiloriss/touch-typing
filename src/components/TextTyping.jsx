@@ -21,46 +21,53 @@ const TextTyping = ({
     updateAccuracy,
     updateSpeed,
 }) => {
+    // set index for key of char
     let index = 0;
+
+    // set passed time that will increase in 1s
     let timeElapsed = 0;
+
+    // set current character
     if (count < text.length) {
         text[count].current = true;
     }
 
     useEffect(() => {
         document.body.addEventListener('keydown', (e) => {
-            // setInterval(() => {
-            //     timeElapsed++;
-            //     updateSpeed(count, timeElapsed++);
-            // }, 1000);
+            // some conditions to work with keys
             if (
                 e.keyCode !== 16 &&
                 e.keyCode !== 17 &&
                 e.keyCode !== 20 &&
                 e.key.match(/^[a-zA-Z0-9_' '_._,-]*$/)
-                ) {
-                    if (count < text.length) {
+            ) {
+                // update current character
+                if (count < text.length) {
                     text[count].current = null;
                 }
 
-                
-                
                 if (count < text.length) {
+                    // comparing keys pressed with current char in text
                     if (e.key === text[count].letter) {
                         text[count].success = true;
+                        // count++ for move on in text
                         setCount((count += 1));
                     } else {
+                        // set failure char
                         text[count].success = null;
                         text[count].failure = true;
                         setCount((count += 1));
+                        // set mistake and accuracy if fail
                         updateMistake((mistake += 1));
                         updateAccuracy((accuracy -= 0.5));
                     }
-                    
+
+                    // if text has been passed then complete and open modal window
                     if (count === text.length) {
                         setIsCompleted(true);
                     }
                 }
+                // set timer to count typing speed
                 if (count === 1 && count !== text.legth) {
                     timeElapsed++;
                     let timer = setInterval(myTimer, 1000);
@@ -71,6 +78,7 @@ const TextTyping = ({
             }
         });
     }, [text]);
+    
     return (
         <>
             <Paper style={paperStyle}>
